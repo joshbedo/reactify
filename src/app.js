@@ -1,8 +1,19 @@
 var React = require('react');
+var _     = require('underscore');
+var MockAPI = require('./MockAPI');
+var TaskAPI = require('./utils/TaskAPI');
 
-var Quiz = require('./components/Quiz');
+// Main Dashboard Component
+var Dashboard = require('./components/Dashboard');
+
+// Load Mock Data into localStorage.
+MockAPI.init();
+
+// Load Mock API Calls.
+TaskAPI.getTasks();
+
 
 React.render(
-  <Quiz books={['The lord of rings', 'The illiad']} />,
-  document.getElementById('app')
+  <Dashboard />,
+  document.getElementById('dashboard')
 );
