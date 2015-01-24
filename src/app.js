@@ -1,34 +1,19 @@
 var React = require('react');
 var _     = require('underscore');
+var MockAPI = require('./MockAPI');
+var TaskAPI = require('./utils/TaskAPI');
 
-var Quiz = require('./components/Quiz');
+// Main Dashboard Component
+var Dashboard = require('./components/Dashboard');
 
-var data = [
-	{ name: 'Mark Twain', books: ['The Adventures of Huckleberry'] },
-	{ name: 'Joseph Condrad', books: ['Heart of Darkness'] },
-	{ name: 'J.K Rowling', books: ['Harry Potter'] },
-	{ name: 'Stephen King', books: ['The Shining'] },
-	{ name: 'William Shakespear', books: ['Hamlet', 'MacBeth', 'Romeo and Juliet'] }
-];
+// Load Mock Data into localStorage.
+MockAPI.init();
 
-data.selectGame = function() {
-	var books = _.shuffle(this.reduce(function(p, c, i) {
-		return p.concat(c.books);
-	}, [])).slice(0,4);
+// Load Mock API Calls.
+TaskAPI.getTasks();
 
-	var answer = books[_.random(books.length - 1)];
-
-	return {
-		books: books,
-		author: _.find(this, function (author) {
-			return author.books.some(function (title) {
-				return title === answer;
-			});
-		})
-	}
-}
 
 React.render(
-  <Quiz data={data} />,
-  document.getElementById('app')
+  <Dashboard />,
+  document.getElementById('dashboard')
 );
